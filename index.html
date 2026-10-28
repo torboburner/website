@@ -5,172 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Crayon Tank – Torbyte</title>
 <meta name="description" content="Crayon Tank – Panzerschlachten in einer Buntstift-Welt.">
-<style>
-  /* Fonts are hosted here, no third party */
-  @font-face { font-family:"Bangers"; src:url("fonts/Bangers-Regular.ttf") format("truetype"); font-display:swap; }
-  @font-face { font-family:"Patrick Hand"; src:url("fonts/PatrickHand-Regular.ttf") format("truetype"); font-display:swap; }
-
-  :root {
-    --paper:#fbf6ea; --ink:#2a2622; --muted:#6e665a; --line:#2a2622;
-    --red:#e2483d; --yellow:#ffc93c; --blue:#3d7be2; --green:#4caf50; --purple:#8b5cf6;
-    --card:#fffdf7;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root { --paper:#1f1c19; --ink:#f3ecdd; --muted:#b3aa9b; --line:#f3ecdd; --card:#2a2622; }
-  }
-  * { box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body {
-    margin:0; color:var(--ink); background:var(--paper);
-    font:20px/1.5 "Patrick Hand", "Comic Sans MS", system-ui, sans-serif;
-    overflow-x:hidden;
-    /* paper grain */
-    background-image:
-      repeating-linear-gradient(115deg, rgba(0,0,0,.025) 0 2px, transparent 2px 7px),
-      repeating-linear-gradient(25deg, rgba(0,0,0,.02) 0 1px, transparent 1px 9px);
-  }
-  h1, h2, h3, .tab, .btn { font-family:"Bangers", Impact, sans-serif; letter-spacing:.04em; font-weight:400; }
-  a { color:inherit; }
-
-  /* ---------- top bar ---------- */
-  .top {
-    position:sticky; top:0; z-index:10;
-    display:flex; justify-content:center; gap:12px; padding:14px 16px;
-    background:color-mix(in srgb, var(--paper) 88%, transparent);
-    backdrop-filter:blur(6px); border-bottom:3px solid var(--line);
-  }
-  .tab {
-    font-size:1.4rem; padding:6px 22px; cursor:pointer; color:var(--ink);
-    background:var(--card); border:3px solid var(--line); border-radius:14px 10px 16px 9px;
-    box-shadow:4px 4px 0 var(--line); transition:transform .12s, box-shadow .12s, background .2s;
-  }
-  .tab:hover { transform:translate(-2px,-2px) rotate(-1.5deg); box-shadow:6px 6px 0 var(--line); }
-  .tab:active { transform:translate(3px,3px); box-shadow:1px 1px 0 var(--line); }
-  .tab[aria-selected="true"] { background:var(--yellow); color:#2a2622; }
-
-  .page { display:none; }
-  .page.active { display:block; animation:pop .35s ease; }
-  @keyframes pop { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
-
-  .wrap { max-width:1040px; margin:0 auto; padding:0 16px; }
-
-  /* ---------- hero ---------- */
-  .hero { position:relative; text-align:center; padding:72px 0 40px; }
-  .hero h1 {
-    font-size:clamp(3.4rem, 13vw, 8rem); margin:0; line-height:.95; color:var(--red);
-    -webkit-text-stroke:3px var(--line); paint-order:stroke fill;
-    text-shadow:6px 6px 0 var(--yellow), 9px 9px 0 var(--line);
-  }
-  .hero h1 span { display:inline-block; animation:wobble 3s ease-in-out infinite; }
-  .hero h1 span:nth-child(odd) { animation-delay:-1.5s; }
-  @keyframes wobble { 0%,100% { transform:rotate(-2deg) translateY(0); } 50% { transform:rotate(2deg) translateY(-6px); } }
-  .tagline { font-size:1.6rem; margin:20px 0 32px; color:var(--muted); }
-
-  .btn {
-    display:inline-block; font-size:1.6rem; padding:12px 30px; text-decoration:none; color:#2a2622;
-    background:var(--green); border:3px solid #2a2622; border-radius:18px 12px 20px 10px;
-    box-shadow:5px 5px 0 var(--line); transition:transform .12s, box-shadow .12s;
-  }
-  .btn:hover { transform:translate(-2px,-2px) rotate(1deg) scale(1.04); box-shadow:8px 8px 0 var(--line); }
-  .btn.soon { background:var(--yellow); cursor:default; }
-
-  /* driving tank */
-  .road { position:relative; height:70px; margin:40px 0 0; border-bottom:4px dashed var(--line); overflow:hidden; }
-  .tank { position:absolute; bottom:4px; left:-120px; width:90px; border-radius:40%; animation:drive 11s linear infinite; }
-  @keyframes drive { to { left:calc(100% + 120px); } }
-  .tank { animation:drive 11s linear infinite, bump .25s ease-in-out infinite alternate; }
-  @keyframes bump { to { margin-bottom:3px; } }
-
-  /* scribble doodles */
-  .doodle { position:absolute; font-size:42px; opacity:.85; animation:float 6s ease-in-out infinite; pointer-events:none; }
-  @keyframes float { 0%,100% { transform:translateY(0) rotate(-8deg); } 50% { transform:translateY(-14px) rotate(8deg); } }
-
-  /* ---------- sections ---------- */
-  section { padding:48px 0; }
-  h2 { font-size:clamp(2.2rem, 6vw, 3.4rem); margin:0 0 20px; text-align:center; }
-  h2 .mark { background:linear-gradient(transparent 55%, var(--yellow) 55% 90%, transparent 90%); padding:0 8px; color:var(--ink); }
-
-  /* gallery: polaroids */
-  .gallery { display:grid; grid-template-columns:repeat(2, 1fr); gap:32px; padding:10px; }
-  @media (max-width:640px) { .gallery { grid-template-columns:1fr; } }
-  .photo {
-    background:#fff; padding:10px 10px 6px; border:3px solid #2a2622; border-radius:6px;
-    box-shadow:6px 6px 0 var(--line); transform:rotate(var(--r)); transition:transform .25s, box-shadow .25s;
-    cursor:zoom-in; color:#2a2622; margin:0;
-  }
-  .photo:hover { transform:rotate(0) scale(1.05); box-shadow:10px 10px 0 var(--line); z-index:2; position:relative; }
-  .photo img { width:100%; display:block; border:2px solid #2a2622; aspect-ratio:16/9; object-fit:cover; }
-  .photo figcaption { text-align:center; font-size:1.3rem; padding-top:4px; }
-
-  /* features */
-  .features { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:24px; }
-  .feat {
-    background:var(--card); border:3px solid var(--line); border-radius:20px 14px 22px 12px; padding:20px;
-    box-shadow:5px 5px 0 var(--c); transition:transform .2s;
-  }
-  .feat:hover { transform:rotate(-1.5deg) translateY(-4px); }
-  .feat .ico { font-size:44px; display:inline-block; transition:transform .4s; }
-  .feat:hover .ico { transform:rotate(360deg) scale(1.15); }
-  .feat h3 { font-size:1.7rem; margin:6px 0; color:var(--c); -webkit-text-stroke:1px var(--line); }
-  .feat p { margin:0; }
-
-  /* server status */
-  .status {
-    display:inline-flex; align-items:center; gap:10px; font-size:1.3rem;
-    border:3px solid var(--line); border-radius:999px; padding:6px 18px; background:var(--card);
-  }
-  .dot { width:16px; height:16px; border-radius:50%; background:#999; border:2px solid var(--line); }
-  .dot.on { background:var(--green); animation:pulse 1.6s infinite; }
-  .dot.off { background:var(--red); }
-  @keyframes pulse { 50% { box-shadow:0 0 0 8px color-mix(in srgb, var(--green) 25%, transparent); } }
-
-  /* lightbox */
-  .lightbox { position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; place-items:center; z-index:50; padding:16px; cursor:zoom-out; }
-  .lightbox.open { display:grid; animation:pop .2s; }
-  .lightbox img { max-width:100%; max-height:90vh; border:4px solid #fff; border-radius:8px; }
-
-  /* empty page */
-  .empty { text-align:center; padding:120px 16px; color:var(--muted); }
-  .empty h1 { font-size:clamp(3rem, 10vw, 5rem); margin:0; color:var(--ink); }
-
-  /* ---------- footer ---------- */
-  footer { border-top:3px solid var(--line); margin-top:40px; padding:28px 16px 36px; text-align:center; color:var(--muted); }
-  .counter { font-size:1.4rem; color:var(--ink); margin-bottom:8px; }
-  .counter b { font-family:"Bangers", Impact, sans-serif; font-weight:400; letter-spacing:.06em; color:var(--red); font-size:1.6rem; }
-  .links { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:14px 0; }
-  .links button {
-    font:inherit; font-size:1.1rem; cursor:pointer; color:var(--ink); background:var(--card);
-    border:2px solid var(--line); border-radius:12px; padding:4px 16px; box-shadow:3px 3px 0 var(--line);
-  }
-  .links button:hover { background:var(--yellow); color:#2a2622; }
-
-  /* modal */
-  dialog {
-    max-width:560px; width:calc(100% - 32px); border:3px solid var(--line); border-radius:18px;
-    background:var(--card); color:var(--ink); box-shadow:8px 8px 0 var(--line); padding:24px;
-    font-family:inherit; font-size:1.15rem;
-  }
-  dialog::backdrop { background:rgba(0,0,0,.5); }
-  dialog h3 { font-size:2rem; margin:0 0 10px; }
-  dialog .close { float:right; font-size:1.4rem; cursor:pointer; background:none; border:none; color:var(--ink); }
-
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation:none !important; transition:none !important; } }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<nav class="top" role="tablist">
-  <button class="tab" role="tab" data-page="torbyte" aria-selected="false">Torbyte</button>
-  <button class="tab" role="tab" data-page="crayontank" aria-selected="true">Crayon Tank</button>
+<nav class="top">
+  <a class="tab" href="torbyte.html" aria-selected="false">Torbyte</a>
+  <a class="tab" href="./" aria-selected="true">Crayon Tank</a>
 </nav>
-
-<!-- ===== Torbyte (empty for now) ===== -->
-<main id="torbyte" class="page">
-  <div class="empty">
-    <h1>Torbyte</h1>
-    <p>Hier entsteht bald etwas. ✏️</p>
-  </div>
-</main>
 
 <!-- ===== Crayon Tank ===== -->
 <main id="crayontank" class="page active">
@@ -209,50 +51,18 @@
 <footer>
   <div class="counter" id="counter">Du bist der <b id="count">…</b> Besucher!</div>
   <div class="links">
-    <button data-dialog="privacy">Datenschutzerklärung</button>
-    <button data-dialog="imprint">Impressum</button>
+    <a class="linkbtn" href="datenschutz.html">Datenschutzerklärung</a>
+    <a class="linkbtn" href="impressum.html">Impressum</a>
   </div>
   <div>Copyright © 2010 - 2026 · All rights reserved</div>
 </footer>
 
 <div class="lightbox" id="lightbox"><img alt=""></div>
 
-<dialog id="privacy">
-  <button class="close" aria-label="Schließen">✖</button>
-  <h3>Datenschutzerklärung</h3>
-  <p>Die Datenschutzerklärung ist <b>work in progress</b>.</p>
-</dialog>
-
-<dialog id="imprint">
-  <button class="close" aria-label="Schließen">✖</button>
-  <h3>Impressum</h3>
-  <p>Angaben gemäß § 5 DDG</p>
-  <p>[Vorname Nachname]<br>[Straße Nr.]<br>[PLZ Ort]<br>Deutschland</p>
-  <p>E-Mail: [info@deine-domain.de]</p>
-</dialog>
-
 <script>
   // Address of the small counter/status service on the VPS (see ANLEITUNG.md).
   // Leave empty until the VPS runs it.
   const STATUS_URL = "";
-
-  // tabs
-  const tabs = document.querySelectorAll(".tab");
-  function show(id) {
-    tabs.forEach(t => t.setAttribute("aria-selected", t.dataset.page === id));
-    document.querySelectorAll(".page").forEach(p => p.classList.toggle("active", p.id === id));
-    history.replaceState(null, "", "#" + id);
-  }
-  tabs.forEach(t => t.addEventListener("click", () => show(t.dataset.page)));
-  if (location.hash === "#torbyte") show("torbyte");
-
-  // dialogs
-  document.querySelectorAll("[data-dialog]").forEach(b =>
-    b.addEventListener("click", () => document.getElementById(b.dataset.dialog).showModal()));
-  document.querySelectorAll("dialog").forEach(d => {
-    d.querySelector(".close").addEventListener("click", () => d.close());
-    d.addEventListener("click", e => { if (e.target === d) d.close(); });
-  });
 
   // lightbox
   const lb = document.getElementById("lightbox");

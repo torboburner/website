@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datenschutz – Torbyte</title>
+<style>
+  @font-face { font-family:"Bangers"; src:url("fonts/Bangers-Regular.ttf") format("truetype"); font-display:swap; }
+  @font-face { font-family:"Patrick Hand"; src:url("fonts/PatrickHand-Regular.ttf") format("truetype"); font-display:swap; }
+  :root { --paper:#fbf6ea; --ink:#2a2622; --muted:#6e665a; --line:#2a2622; --yellow:#ffc93c; --card:#fffdf7; }
+  @media (prefers-color-scheme: dark) { :root { --paper:#1f1c19; --ink:#f3ecdd; --muted:#b3aa9b; --line:#f3ecdd; --card:#2a2622; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:19px/1.6 system-ui, sans-serif; }
+  .wrap { max-width:780px; margin:0 auto; padding:24px 16px 48px; }
+  h1, h2 { font-family:"Bangers", Impact, sans-serif; font-weight:400; letter-spacing:.04em; }
+  h1 { font-size:clamp(2.4rem, 8vw, 3.4rem); margin:16px 0 8px; }
+  h2 { font-size:1.7rem; margin:36px 0 8px; }
+  h2::before { content:""; display:inline-block; width:14px; height:14px; margin-right:10px; background:var(--yellow); border:2px solid var(--line); border-radius:3px; }
+  .back {
+    display:inline-block; font-family:"Patrick Hand", sans-serif; font-size:1.2rem; text-decoration:none; color:var(--ink);
+    background:var(--card); border:2px solid var(--line); border-radius:12px; padding:4px 16px; box-shadow:3px 3px 0 var(--line);
+  }
+  .back:hover { background:var(--yellow); color:#2a2622; }
+  .muted { color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.95rem; }
+  td, th { border:1px solid var(--muted); padding:6px 8px; text-align:left; vertical-align:top; }
+  footer { margin-top:48px; color:var(--muted); font-size:.9rem; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="./">← Zurück</a>
+
+  <h1>Datenschutzerklärung</h1>
+  <p class="muted">Stand: Oktober 2026 · gilt für die Website torbyte.online und die App „Crayon Tank“</p>
+
+  <h2>1. Verantwortlicher</h2>
+  <p>[Vorname Nachname]<br>[Straße Nr.]<br>[PLZ Ort], Deutschland<br>E-Mail: [info@torbyte.online]</p>
+  <p>Kurz gesagt: Wir speichern so wenig wie möglich. Keine Werbung, kein Tracking, keine Cookies, kein Verkauf von Daten.</p>
+
+  <h2>2. Website</h2>
+  <p><b>Hosting.</b> Die Website liegt bei GitHub Pages (GitHub Inc., 88 Colin P. Kelly Jr. St., San Francisco, CA 94107, USA).
+  Beim Aufruf verarbeitet GitHub technisch notwendige Daten wie IP-Adresse, Zeitpunkt, abgerufene Datei und Browser-Kennung,
+  um die Seite auszuliefern und vor Angriffen zu schützen. Darauf haben wir keinen Zugriff.
+  Rechtsgrundlage: berechtigtes Interesse an einer sicheren und erreichbaren Website (Art. 6 Abs. 1 lit. f DSGVO).
+  Die Übermittlung in die USA stützt sich auf das EU-US Data Privacy Framework bzw. Standardvertragsklauseln.
+  Details: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">Datenschutzerklärung von GitHub</a>.</p>
+  <p><b>Besucherzähler und Server-Status.</b> Beim Öffnen fragt die Seite unseren eigenen Server (Adresse [status.torbyte.online]) ab,
+  ob der Spielserver läuft, und erhöht einen Zähler um eins. Gespeichert wird nur diese eine Gesamtzahl –
+  keine IP-Adresse, keine Kennung, kein Zugriffsprotokoll. Ein Rückschluss auf Personen ist nicht möglich.
+  Die IP-Adresse wird dabei nur kurz im Arbeitsspeicher verarbeitet, um die Antwort zu senden.</p>
+  <p><b>Cookies.</b> Die Website setzt keine Cookies und speichert nichts auf deinem Gerät. Schriften und Bilder liegen auf unserem eigenen Webspace; es werden keine Inhalte von Drittanbietern geladen.</p>
+
+  <h2>3. App „Crayon Tank“</h2>
+  <p>Crayon Tank wird online über unseren Spielserver gespielt. Dafür verarbeiten wir:</p>
+  <table>
+    <tr><th>Daten</th><th>Wozu</th><th>Wie lange</th></tr>
+    <tr><td>Spielername (frei gewählt)</td><td>Dein Konto: damit du deinen Spielstand wiederbekommst</td><td>bis du die Löschung verlangst oder [12] Monate nach dem letzten Login</td></tr>
+    <tr><td>Spielstand (Level, EP, Inventar, Upgrades, gebaute Basis, Aufträge, Schwierigkeit)</td><td>Spiel fortsetzen</td><td>wie Spielername</td></tr>
+    <tr><td>IP-Adresse</td><td>Verbindung zum Server herstellen</td><td>nur während der Verbindung, wird nicht gespeichert</td></tr>
+    <tr><td>Technische Server-Daten (Datenmenge/Durchsatz, Anzahl Verbindungen)</td><td>Betrieb und Fehlersuche</td><td>ohne Personenbezug; höchstens [30] Tage</td></tr>
+  </table>
+  <p>Bitte verwende als Spielername nicht deinen echten Namen. Der Spielername ist für andere Spieler sichtbar.</p>
+  <p>Rechtsgrundlage: Bereitstellung des Spiels, das du nutzen möchtest (Art. 6 Abs. 1 lit. b DSGVO); für technische Server-Daten unser berechtigtes Interesse an einem stabilen Betrieb (Art. 6 Abs. 1 lit. f DSGVO).</p>
+  <p><b>Auf dem Gerät.</b> Die App merkt sich lokal den zuletzt eingegebenen Namen und deine Einstellungen. Zur Fehlersuche schreibt sie ein Leistungsprotokoll
+  (Bildrate, Ladezeiten, keine persönlichen Daten) in eine Datei auf deinem Gerät. Diese Datei wird nicht automatisch übertragen;
+  nur wenn du sie uns selbst schickst. Optional fragt die App nach Dateizugriff, damit du diese Datei leichter findest – das ist freiwillig.</p>
+  <p><b>Server-Standort.</b> Der Spielserver läuft auf einem gemieteten Server bei [Anbieter, Ort] in der EU. Mit dem Anbieter besteht ein Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO).</p>
+  <p><b>Google Play.</b> Für den Download und Updates gilt die Datenschutzerklärung von Google. Wir erhalten von Google nur zusammengefasste Statistiken (z. B. Anzahl Installationen, Absturzberichte ohne Personenbezug).</p>
+
+  <h2>4. Kinder</h2>
+  <p>Wir erheben wissentlich keine Daten, die über den frei gewählten Spielernamen und den Spielstand hinausgehen. Eltern können die Löschung eines Kontos jederzeit per E-Mail verlangen.</p>
+
+  <h2>5. Weitergabe</h2>
+  <p>Wir geben keine Daten an Dritte weiter, außer an die oben genannten Dienstleister (Hosting) oder wenn wir gesetzlich dazu verpflichtet sind.</p>
+
+  <h2>6. Deine Rechte</h2>
+  <p>Du hast das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung (Art. 18), Datenübertragbarkeit (Art. 20)
+  und Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21 DSGVO).
+  <b>Konto löschen:</b> Schreib uns an [info@torbyte.online] mit deinem Spielernamen – wir löschen Konto und Spielstand innerhalb von 30 Tagen.</p>
+  <p>Du kannst dich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren, z. B. bei der Behörde deines Bundeslandes.</p>
+
+  <h2>7. Änderungen</h2>
+  <p>Wenn sich das Spiel oder die Website ändert, passen wir diese Erklärung an. Es gilt die jeweils hier veröffentlichte Fassung.</p>
+
+  <footer>Copyright © 2010 - 2026 · All rights reserved</footer>
+</div>
+</body>
+</html>
